@@ -1,0 +1,17 @@
+# Windows
+Thumbs.db
+Desktop.ini
+
+# macOS
+.DS_Store
+
+# Vim
+*.swp
+
+# Unity
+/Library
+/Temp
+
+/Assets/UnityARKitPlugin
+/Assets/Face.asset
+/Assets/Face.asset.meta
