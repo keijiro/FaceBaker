@@ -37,6 +37,7 @@ namespace FaceBaker
         void OnDestroy()
         {
             if (_displayMesh != null) Destroy(_displayMesh);
+            if (_outputMesh != null) Destroy(_outputMesh);
         }
 
         void Update()
@@ -54,6 +55,12 @@ namespace FaceBaker
                     StartRecording();
                 else
                     AddBlendShape();
+            }
+
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                if (_outputMesh != null)
+                    FinishRecording();
             }
         }
 
@@ -109,9 +116,6 @@ namespace FaceBaker
             _outputMesh.RecalculateBounds();
             _outputMesh.RecalculateNormals();
 
-            var path = AssetDatabase.GenerateUniqueAssetPath("Assets/Face.asset");
-            AssetDatabase.CreateAsset(_outputMesh, path);
-
             _outputCount = 1;
         }
 
@@ -129,8 +133,14 @@ namespace FaceBaker
             );
 
             _outputCount++;
+        }
 
+        void FinishRecording()
+        {
+            var path = AssetDatabase.GenerateUniqueAssetPath("Assets/Face.asset");
+            AssetDatabase.CreateAsset(_outputMesh, path);
             AssetDatabase.SaveAssets();
+            _outputMesh = null;
         }
 
         #endregion
